@@ -1,4 +1,4 @@
-import { observable } from "mobx";
+import { makeObservable, observable } from "mobx";
 import * as rtdb from "firebase/database";
 import { firebase } from "../firebase";
 
@@ -30,10 +30,15 @@ export class Drawing {
     rtdb.onChildRemoved(this.ref, (snapshot) => {
       this.layers.delete(snapshot.key!);
     });
+
+    makeObservable(this, {
+      selectedID: observable,
+    });
   }
 
   readonly layers = observable.map<string, Layer>();
   readonly ref: rtdb.DatabaseReference;
+  readonly selectedID: string | null = null;
 
   addLayer(layer: Layer): string {
     const id = generateRandomID();
