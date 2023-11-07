@@ -27,11 +27,25 @@ export const ResizeHandle: React.FC<{
       <DragHandle
         point={{ x: rect.x, y: rect.y }}
         onChange={({ x, y }) => {
-          onChange({
-            ...rect,
-            x,
-            y,
-          });
+          onChange({ ...rect, x, y });
+        }}
+      />
+      <DragHandle
+        point={{ x: rect.x + rect.width, y: rect.y }}
+        onChange={({ x, y }) => {
+          onChange({ ...rect, x: x - rect.width, y });
+        }}
+      />
+      <DragHandle
+        point={{ x: rect.x, y: rect.y + rect.height }}
+        onChange={({ x, y }) => {
+          onChange({ ...rect, x, y: y - rect.height });
+        }}
+      />
+      <DragHandle
+        point={{ x: rect.x + rect.width, y: rect.y + rect.height }}
+        onChange={({ x, y }) => {
+          onChange({ ...rect, x: x - rect.width, y: y - rect.height });
         }}
       />
     </>
