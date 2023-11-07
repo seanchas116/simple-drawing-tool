@@ -80,10 +80,10 @@ export const ResizeHandle: React.FC<{
 };
 
 interface DragState {
-  initialX: number;
-  initialY: number;
-  rect: Rect;
-  point: Point;
+  initX: number;
+  initY: number;
+  initRect: Rect;
+  initPoint: Point;
 }
 
 const DragHandle: React.FC<{
@@ -97,19 +97,19 @@ const DragHandle: React.FC<{
     event.currentTarget.setPointerCapture(event.pointerId);
 
     setDragState({
-      initialX: event.clientX,
-      initialY: event.clientY,
-      point,
-      rect,
+      initX: event.clientX,
+      initY: event.clientY,
+      initPoint: point,
+      initRect: rect,
     });
   };
 
   const onPointerMove = (event: React.PointerEvent) => {
     if (dragState) {
-      const { initialX, initialY, point, rect } = dragState;
-      const x = point.x + event.clientX - initialX;
-      const y = point.y + event.clientY - initialY;
-      onChange({ x, y }, rect);
+      const { initX, initY, initPoint, initRect } = dragState;
+      const x = initPoint.x + event.clientX - initX;
+      const y = initPoint.y + event.clientY - initY;
+      onChange({ x, y }, initRect);
     }
   };
 

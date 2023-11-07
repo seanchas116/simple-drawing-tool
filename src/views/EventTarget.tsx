@@ -3,8 +3,8 @@ import { Drawing } from "../state/Drawing";
 import { useState } from "react";
 
 interface DragState {
-  initialX: number;
-  initialY: number;
+  initX: number;
+  initY: number;
   layerID: string;
 }
 
@@ -24,19 +24,19 @@ export const EventTarget: React.FC<{
     });
 
     setDragState({
-      initialX: event.clientX,
-      initialY: event.clientY,
+      initX: event.clientX,
+      initY: event.clientY,
       layerID,
     });
   };
 
   const onMouseMove = (event: React.MouseEvent) => {
     if (dragState) {
-      const { initialX, initialY, layerID } = dragState;
-      const x = Math.min(initialX, event.clientX);
-      const y = Math.min(initialY, event.clientY);
-      const width = Math.abs(event.clientX - initialX);
-      const height = Math.abs(event.clientY - initialY);
+      const { initX, initY, layerID } = dragState;
+      const x = Math.min(initX, event.clientX);
+      const y = Math.min(initY, event.clientY);
+      const width = Math.abs(event.clientX - initX);
+      const height = Math.abs(event.clientY - initY);
       drawing.updateLayer(layerID, {
         type: "rect",
         text: "",
