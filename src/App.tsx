@@ -14,6 +14,14 @@ export default function App() {
           <Icon icon="icon-park-outline:arrow-right-up" />
         </button>
       </div>
+      <div className="absolute right-4 bottom-4 shadow-xl border border-gray-200 rounded-full px-3 py-1 flex">
+        <button className="p-2">
+          <Icon icon="icon-park-outline:undo" />
+        </button>
+        <button className="p-2">
+          <Icon icon="icon-park-outline:redo" />
+        </button>
+      </div>
     </div>
   );
 }
