@@ -1,10 +1,13 @@
 import { Icon } from "@iconify/react";
+import { observer } from "mobx-react-lite";
 import { Drawing } from "./Drawing";
 import { Canvas } from "./Canvas";
+import { auth } from "./Auth";
+import { SignIn } from "./SignIn";
 
 const drawing = new Drawing("test");
 
-export default function App() {
+export const App = observer(() => {
   return (
     <div className="fixed inset-0 w-screen h-screen">
       <Canvas drawing={drawing} />
@@ -27,6 +30,7 @@ export default function App() {
           <Icon icon="icon-park-outline:redo" />
         </button>
       </div>
+      {auth.user ? null : <SignIn />}
     </div>
   );
-}
+});
