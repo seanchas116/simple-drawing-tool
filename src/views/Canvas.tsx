@@ -3,7 +3,6 @@ import { observer } from "mobx-react-lite";
 import { Drawing } from "../state/Drawing";
 import { EventTarget } from "./EventTarget";
 import colors from "tailwindcss/colors";
-import { state } from "../state/State";
 
 export const Canvas: React.FC<{
   drawing: Drawing;
@@ -48,7 +47,7 @@ export const Canvas: React.FC<{
           />
         )}
       </svg>
-      {state.tool !== "select" && <EventTarget drawing={drawing} />}
+      {drawing.tool !== "select" && <EventTarget drawing={drawing} />}
     </div>
   );
 });

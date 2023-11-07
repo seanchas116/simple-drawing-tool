@@ -33,12 +33,14 @@ export class Drawing {
 
     makeObservable(this, {
       selectedID: observable,
+      tool: observable,
     });
   }
 
   readonly layers = observable.map<string, Layer>();
   readonly ref: rtdb.DatabaseReference;
   selectedID: string | null = null;
+  tool: Tool = "select";
 
   addLayer(layer: Layer): string {
     const id = generateRandomID();
@@ -60,3 +62,5 @@ export class Drawing {
       : this.layers.get(this.selectedID) ?? null;
   }
 }
+
+export type Tool = "select" | "arrow" | "rect" | "ellipse";
