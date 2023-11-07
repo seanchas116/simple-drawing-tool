@@ -1,5 +1,5 @@
 import { observer } from "mobx-react-lite";
-import { Drawing } from "./Drawing";
+import { Drawing } from "../state/Drawing";
 import { useState } from "react";
 
 interface DragState {

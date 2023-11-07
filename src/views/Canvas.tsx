@@ -1,5 +1,5 @@
 import React from "react";
-import { Drawing } from "./Drawing";
+import { Drawing } from "../state/Drawing";
 import { EventTarget } from "./EventTarget";
 
 export const Canvas: React.FC<{

@@ -1,6 +1,6 @@
 import { action, makeObservable, observable } from "mobx";
 import { User } from "firebase/auth";
-import { firebase } from "./firebase";
+import { firebase } from "../firebase";
 
 class Auth {
   constructor() {
@@ -9,7 +9,7 @@ class Auth {
     });
 
     firebase.auth.onAuthStateChanged(
-      action((user) => {
+      action((user: User | null) => {
         this.user = user;
       })
     );

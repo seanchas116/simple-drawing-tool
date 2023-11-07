@@ -1,6 +1,6 @@
 import { observable } from "mobx";
 import * as rtdb from "firebase/database";
-import { firebase } from "./firebase";
+import { firebase } from "../firebase";
 
 interface Layer {
   type: "text" | "rect" | "ellipse";

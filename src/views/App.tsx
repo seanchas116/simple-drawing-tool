@@ -1,8 +1,8 @@
 import { Icon } from "@iconify/react";
 import { observer } from "mobx-react-lite";
-import { Drawing } from "./Drawing";
+import { Drawing } from "../state/Drawing";
 import { Canvas } from "./Canvas";
-import { auth } from "./Auth";
+import { auth } from "../state/Auth";
 import { SignIn } from "./SignIn";
 
 const drawing = new Drawing("test");
