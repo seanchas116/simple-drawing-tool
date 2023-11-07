@@ -2,6 +2,7 @@ import React from "react";
 import { observer } from "mobx-react-lite";
 import { Drawing } from "../state/Drawing";
 import { EventTarget } from "./EventTarget";
+import colors from "tailwindcss/colors";
 
 export const Canvas: React.FC<{
   drawing: Drawing;
@@ -12,6 +13,7 @@ export const Canvas: React.FC<{
         {[...drawing.layers].map(([id, layer]) => {
           return (
             <rect
+              fill={colors.blue[500]}
               key={id}
               x={layer.x}
               y={layer.y}
