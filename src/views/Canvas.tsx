@@ -1,6 +1,6 @@
 import React from "react";
 import { observer } from "mobx-react-lite";
-import { Drawing } from "./Drawing";
+import { Drawing } from "../state/Drawing";
 import { EventTarget } from "./EventTarget";
 
 export const Canvas: React.FC<{
