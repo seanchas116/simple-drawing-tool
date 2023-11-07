@@ -1,8 +1,13 @@
 import { Icon } from "@iconify/react";
+import { Drawing } from "./Drawing";
+import { Canvas } from "./Canvas";
+
+const drawing = new Drawing("test");
 
 export default function App() {
   return (
     <div className="fixed inset-0 w-screen h-screen">
+      <Canvas drawing={drawing} />
       <div className="absolute left-[50%] bottom-4 translate-x-[-50%] shadow-xl border border-gray-200 rounded-full px-3 py-1 flex">
         <button className="p-2">
           <Icon icon="icon-park-outline:square" />
