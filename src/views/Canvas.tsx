@@ -1,10 +1,11 @@
 import React from "react";
-import { Drawing } from "../state/Drawing";
+import { observer } from "mobx-react-lite";
+import { Drawing } from "./Drawing";
 import { EventTarget } from "./EventTarget";
 
 export const Canvas: React.FC<{
   drawing: Drawing;
-}> = ({ drawing }) => {
+}> = observer(({ drawing }) => {
   return (
     <div className="absolute inset-0 w-full h-full">
       <svg className="absolute inset-0 w-full h-full">
@@ -23,4 +24,4 @@ export const Canvas: React.FC<{
       <EventTarget drawing={drawing} />
     </div>
   );
-};
+});
