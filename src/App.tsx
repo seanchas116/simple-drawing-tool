@@ -1,3 +1,9 @@
 export default function App() {
-  return <h1 className="text-3xl font-bold underline">Hello world!</h1>;
+  return (
+    <div className="fixed inset-0 w-screen h-screen">
+      <div className="absolute left-[50%] bottom-2 translate-x-[-50%] shadow-xl border border-gray-200 rounded-full p-2">
+        TODO: Tools
+      </div>
+    </div>
+  );
 }
