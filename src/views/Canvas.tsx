@@ -3,6 +3,7 @@ import { observer } from "mobx-react-lite";
 import { Drawing } from "../state/Drawing";
 import { EventTarget } from "./EventTarget";
 import colors from "tailwindcss/colors";
+import { ResizeHandle } from "./ResizeHandle";
 
 export const Canvas: React.FC<{
   drawing: Drawing;
@@ -36,14 +37,13 @@ export const Canvas: React.FC<{
           );
         })}
         {selectedLayer && (
-          <rect
-            fill="none"
-            stroke={colors.red[500]}
-            strokeWidth={4}
-            x={selectedLayer.x}
-            y={selectedLayer.y}
-            width={selectedLayer.width}
-            height={selectedLayer.height}
+          <ResizeHandle
+            rect={selectedLayer}
+            onChange={(rect) => {
+              if (drawing.selectedID) {
+                drawing.updateLayer(drawing.selectedID, rect);
+              }
+            }}
           />
         )}
       </svg>

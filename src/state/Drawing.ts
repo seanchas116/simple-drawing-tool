@@ -48,8 +48,8 @@ export class Drawing {
     return id;
   }
 
-  updateLayer(id: string, layer: Layer) {
-    rtdb.set(rtdb.child(this.ref, id), layer);
+  updateLayer(id: string, layer: Partial<Layer>) {
+    rtdb.update(rtdb.child(this.ref, id), layer);
   }
 
   removeLayer(id: string) {
