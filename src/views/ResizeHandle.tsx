@@ -79,9 +79,9 @@ export const ResizeHandle: React.FC<{
   );
 };
 
-interface DragState {
-  initialX: number;
-  initialY: number;
+interface InitState {
+  clientX: number;
+  clientY: number;
   rect: Rect;
   point: Point;
 }
@@ -91,32 +91,31 @@ const DragHandle: React.FC<{
   rect: Rect;
   onChange: (point: Point, initRect: Rect) => void;
 }> = ({ point, rect, onChange }) => {
-  const [dragState, setDragState] = useState<DragState | null>(null);
+  const [init, setInit] = useState<InitState | null>(null);
 
   const onPointerDown = (event: React.PointerEvent) => {
     event.currentTarget.setPointerCapture(event.pointerId);
 
-    setDragState({
-      initialX: event.clientX,
-      initialY: event.clientY,
+    setInit({
+      clientX: event.clientX,
+      clientY: event.clientY,
       point,
       rect,
     });
   };
 
   const onPointerMove = (event: React.PointerEvent) => {
-    if (dragState) {
-      const { initialX, initialY, point, rect } = dragState;
-      const x = point.x + event.clientX - initialX;
-      const y = point.y + event.clientY - initialY;
-      onChange({ x, y }, rect);
+    if (init) {
+      const x = init.point.x + event.clientX - init.clientX;
+      const y = init.point.y + event.clientY - init.clientY;
+      onChange({ x, y }, init.rect);
     }
   };
 
   const onPointerEnd = (event: React.PointerEvent) => {
     event?.currentTarget.releasePointerCapture(event.pointerId);
 
-    setDragState(null);
+    setInit(null);
   };
 
   return (
