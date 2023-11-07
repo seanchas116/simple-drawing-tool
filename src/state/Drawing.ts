@@ -38,7 +38,7 @@ export class Drawing {
 
   readonly layers = observable.map<string, Layer>();
   readonly ref: rtdb.DatabaseReference;
-  readonly selectedID: string | null = null;
+  selectedID: string | null = null;
 
   addLayer(layer: Layer): string {
     const id = generateRandomID();
@@ -52,5 +52,11 @@ export class Drawing {
 
   removeLayer(id: string) {
     rtdb.remove(rtdb.child(this.ref, id));
+  }
+
+  get selectedLayer(): Layer | null {
+    return this.selectedID === null
+      ? null
+      : this.layers.get(this.selectedID) ?? null;
   }
 }
