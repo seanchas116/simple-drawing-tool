@@ -2,8 +2,6 @@ import { Icon } from "@iconify/react";
 import { observer } from "mobx-react-lite";
 import { Drawing } from "../state/Drawing";
 import { Canvas } from "./Canvas";
-import { auth } from "../state/Auth";
-import { SignIn } from "./SignIn";
 import { action } from "mobx";
 import { useKeyBindings } from "./useKeyBindings";
 import { ColorPopover } from "./ColorPopover";
