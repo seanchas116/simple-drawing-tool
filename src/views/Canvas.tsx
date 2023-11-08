@@ -1,4 +1,5 @@
 import React from "react";
+import { action } from "mobx";
 import { observer } from "mobx-react-lite";
 import { Drawing } from "../state/Drawing";
 import { EventTarget } from "./EventTarget";
@@ -17,9 +18,9 @@ export const Canvas: React.FC<{
           fill="white"
           width="100%"
           height="100%"
-          onClick={() => {
+          onClick={action(() => {
             drawing.selectedID = null;
-          }}
+          })}
         />
         {[...drawing.layers].map(([id, layer]) => (
           <CanvasItem key={id} drawing={drawing} id={id} layer={layer} />
