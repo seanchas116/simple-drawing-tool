@@ -1,15 +1,7 @@
 import { action, makeObservable, observable } from "mobx";
 import * as rtdb from "firebase/database";
 import { firebase } from "../firebase";
-
-export interface Layer {
-  type: "text" | "rect" | "ellipse";
-  text: string;
-  x: number;
-  y: number;
-  width: number;
-  height: number;
-}
+import { Layer } from "../types";
 
 function generateRandomID(): string {
   return Math.random().toString(36).substring(7);

@@ -1,6 +1,7 @@
 import { observer } from "mobx-react-lite";
 import { Drawing } from "../state/Drawing";
 import { useState } from "react";
+import colors from "tailwindcss/colors";
 
 interface DragState {
   initX: number;
@@ -16,7 +17,8 @@ export const EventTarget: React.FC<{
   const onMouseDown = (event: React.MouseEvent) => {
     const layerID = drawing.addLayer({
       type: "rect",
-      text: "",
+      color: colors.blue[300],
+      fill: false,
       x: event.clientX,
       y: event.clientY,
       width: 0,
@@ -38,8 +40,6 @@ export const EventTarget: React.FC<{
       const width = Math.abs(event.clientX - initX);
       const height = Math.abs(event.clientY - initY);
       drawing.updateLayer(layerID, {
-        type: "rect",
-        text: "",
         x,
         y,
         width,

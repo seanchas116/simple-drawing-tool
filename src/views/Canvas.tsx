@@ -24,16 +24,18 @@ export const Canvas: React.FC<{
         {[...drawing.layers].map(([id, layer]) => (
           <CanvasItem key={id} drawing={drawing} id={id} layer={layer} />
         ))}
-        {selectedLayer && (
-          <ResizeHandle
-            rect={selectedLayer}
-            onChange={(rect) => {
-              if (drawing.selectedID) {
-                drawing.updateLayer(drawing.selectedID, rect);
-              }
-            }}
-          />
-        )}
+        {selectedLayer &&
+          (selectedLayer.type === "rect" ||
+            selectedLayer.type === "ellipse") && (
+            <ResizeHandle
+              rect={selectedLayer}
+              onChange={(rect) => {
+                if (drawing.selectedID) {
+                  drawing.updateLayer(drawing.selectedID, rect);
+                }
+              }}
+            />
+          )}
       </svg>
       {drawing.tool !== "select" && <EventTarget drawing={drawing} />}
     </div>

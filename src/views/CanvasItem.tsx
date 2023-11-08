@@ -1,21 +1,23 @@
 import React from "react";
 import { observer } from "mobx-react-lite";
-import { Drawing, Layer } from "../state/Drawing";
+import { Drawing } from "../state/Drawing";
 import colors from "tailwindcss/colors";
 import { action } from "mobx";
+import { EllipseLayer, Layer, RectLayer } from "../types";
 
-interface DragState {
+interface CanvasRectLikeItemDragState {
   initX: number;
   initY: number;
-  initLayer: Layer;
+  initLayer: RectLayer | EllipseLayer;
 }
 
-export const CanvasItem: React.FC<{
+const CanvasRectLikeItem: React.FC<{
   drawing: Drawing;
   id: string;
-  layer: Layer;
+  layer: RectLayer | EllipseLayer;
 }> = observer(({ drawing, id, layer }) => {
-  const [dragState, setDragState] = React.useState<DragState | null>(null);
+  const [dragState, setDragState] =
+    React.useState<CanvasRectLikeItemDragState | null>(null);
 
   const onPointerDown = action((event: React.PointerEvent) => {
     event.currentTarget.setPointerCapture(event.pointerId);
@@ -60,4 +62,20 @@ export const CanvasItem: React.FC<{
       height={layer.height}
     />
   );
+});
+
+export const CanvasItem: React.FC<{
+  drawing: Drawing;
+  id: string;
+  layer: Layer;
+}> = observer(({ drawing, id, layer }) => {
+  switch (layer.type) {
+    case "arrow":
+      return null; // TODO
+    case "text":
+      return null; // TODO
+    case "ellipse":
+    case "rect":
+      return <CanvasRectLikeItem drawing={drawing} id={id} layer={layer} />;
+  }
 });
