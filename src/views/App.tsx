@@ -17,6 +17,9 @@ const tools = [
   { type: "text", icon: "icon-park-outline:font-size" },
 ] as const;
 
+const buttonStyle =
+  "p-2 rounded-full aria-selected:bg-blue-500 aria-selected:text-white";
+
 export const App = observer(() => {
   useKeyBindings(drawing);
 
@@ -27,7 +30,7 @@ export const App = observer(() => {
         {tools.map((tool) => {
           return (
             <button
-              className="p-2 rounded-full aria-selected:bg-blue-500 aria-selected:text-white"
+              className={buttonStyle}
               aria-selected={drawing.tool === tool.type}
               onClick={action(() => {
                 drawing.tool = tool.type;
@@ -37,12 +40,16 @@ export const App = observer(() => {
             </button>
           );
         })}
+        <hr className="border-gray-200 border-r-2 h-4 my-auto mx-2" />
+        <button className={buttonStyle}>
+          <div className="w-4 h-4 bg-black rounded-full" />
+        </button>
       </div>
       <div className="absolute right-4 bottom-4 shadow-xl border border-gray-200 rounded-full px-3 py-1 flex bg-white">
-        <button className="p-2">
+        <button className={buttonStyle}>
           <Icon icon="icon-park-outline:undo" />
         </button>
-        <button className="p-2">
+        <button className={buttonStyle}>
           <Icon icon="icon-park-outline:redo" />
         </button>
       </div>
