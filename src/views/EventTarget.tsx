@@ -62,7 +62,11 @@ export const ToolEventTarget: React.FC<{
   };
 
   const onMouseEnd = () => {
-    setDragState(null);
+    if (dragState) {
+      drawing.selectedID = dragState.layerID;
+      drawing.tool = "select";
+      setDragState(null);
+    }
   };
 
   return (
