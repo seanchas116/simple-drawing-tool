@@ -17,38 +17,21 @@ export const ToolEventTarget: React.FC<{
   const [dragState, setDragState] = useState<DragState | null>(null);
 
   const onMouseDown = (event: React.MouseEvent) => {
+    const color = colors.gray[800];
+    const x = event.clientX;
+    const y = event.clientY;
+
     let layer: Layer;
     switch (type) {
       case "rect":
       case "ellipse":
-        layer = {
-          type,
-          color: colors.blue[300],
-          fill: false,
-          x: event.clientX,
-          y: event.clientY,
-          width: 0,
-          height: 0,
-        };
+        layer = { type, color, fill: false, x, y, width: 0, height: 0 };
         break;
       case "arrow":
-        layer = {
-          type: "arrow",
-          color: colors.blue[300],
-          x: event.clientX,
-          y: event.clientY,
-          dx: 0,
-          dy: 0,
-        };
+        layer = { type: "arrow", color, x, y, dx: 0, dy: 0 };
         break;
       case "text":
-        layer = {
-          type: "text",
-          text: "Text",
-          color: colors.blue[300],
-          x: event.clientX,
-          y: event.clientY,
-        };
+        layer = { type: "text", text: "Text", color, x, y };
         break;
     }
 
