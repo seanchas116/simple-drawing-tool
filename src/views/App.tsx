@@ -4,6 +4,7 @@ import { Drawing } from "../state/Drawing";
 import { Canvas } from "./Canvas";
 import { auth } from "../state/Auth";
 import { SignIn } from "./SignIn";
+import { action } from "mobx";
 
 const drawing = new Drawing("test");
 
@@ -24,9 +25,9 @@ export const App = observer(() => {
             <button
               className="p-2 rounded-full aria-selected:bg-blue-500 aria-selected:text-white"
               aria-selected={drawing.tool === tool.type}
-              onClick={() => {
+              onClick={action(() => {
                 drawing.tool = tool.type;
-              }}
+              })}
             >
               <Icon icon={tool.icon} />
             </button>

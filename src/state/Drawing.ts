@@ -1,4 +1,4 @@
-import { makeObservable, observable } from "mobx";
+import { action, makeObservable, observable } from "mobx";
 import * as rtdb from "firebase/database";
 import { firebase } from "../firebase";
 
@@ -19,17 +19,26 @@ export class Drawing {
   constructor(id: string) {
     this.ref = rtdb.ref(firebase.rtdb, `drawings/${id}`);
 
-    rtdb.onChildAdded(this.ref, (snapshot) => {
-      const layer = snapshot.val() as Layer;
-      this.layers.set(snapshot.key!, layer);
-    });
-    rtdb.onChildChanged(this.ref, (snapshot) => {
-      const layer = snapshot.val() as Layer;
-      this.layers.set(snapshot.key!, layer);
-    });
-    rtdb.onChildRemoved(this.ref, (snapshot) => {
-      this.layers.delete(snapshot.key!);
-    });
+    rtdb.onChildAdded(
+      this.ref,
+      action((snapshot) => {
+        const layer = snapshot.val() as Layer;
+        this.layers.set(snapshot.key!, layer);
+      })
+    );
+    rtdb.onChildChanged(
+      this.ref,
+      action((snapshot) => {
+        const layer = snapshot.val() as Layer;
+        this.layers.set(snapshot.key!, layer);
+      })
+    );
+    rtdb.onChildRemoved(
+      this.ref,
+      action((snapshot) => {
+        this.layers.delete(snapshot.key!);
+      })
+    );
 
     makeObservable(this, {
       selectedID: observable,
