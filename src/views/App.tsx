@@ -1,12 +1,10 @@
 import { Icon } from "@iconify/react";
 import { observer } from "mobx-react-lite";
-import { action } from "mobx";
-import { twMerge } from "tailwind-merge";
 import { Drawing } from "../state/Drawing";
 import { Canvas } from "./Canvas";
 import { auth } from "../state/Auth";
 import { SignIn } from "./SignIn";
-
+import { action } from "mobx";
 import { useKeyBindings } from "./useKeyBindings";
 
 const drawing = new Drawing("test");
@@ -19,27 +17,17 @@ const tools = [
   { type: "text", icon: "icon-park-outline:font-size" },
 ] as const;
 
-const toolbarStyle =
-  "shadow-xl border border-gray-200 rounded-full px-3 py-1 flex bg-white";
-const buttonStyle =
-  "p-2 rounded-full aria-selected:bg-blue-500 aria-selected:text-white";
-
 export const App = observer(() => {
   useKeyBindings(drawing);
 
   return (
     <div className="fixed inset-0 w-screen h-screen">
       <Canvas drawing={drawing} />
-      <div
-        className={twMerge(
-          toolbarStyle,
-          "absolute left-[50%] bottom-4 translate-x-[-50%]"
-        )}
-      >
+      <div className="absolute left-[50%] bottom-4 translate-x-[-50%] shadow-xl border border-gray-200 rounded-full px-3 py-1 flex bg-white">
         {tools.map((tool) => {
           return (
             <button
-              className={buttonStyle}
+              className="p-2 rounded-full aria-selected:bg-blue-500 aria-selected:text-white"
               aria-selected={drawing.tool === tool.type}
               onClick={action(() => {
                 drawing.tool = tool.type;
@@ -50,7 +38,7 @@ export const App = observer(() => {
           );
         })}
       </div>
-      <div className={twMerge(toolbarStyle, "absolute right-4 bottom-4")}>
+      <div className="absolute right-4 bottom-4 shadow-xl border border-gray-200 rounded-full px-3 py-1 flex bg-white">
         <button className="p-2">
           <Icon icon="icon-park-outline:undo" />
         </button>
@@ -58,24 +46,6 @@ export const App = observer(() => {
           <Icon icon="icon-park-outline:redo" />
         </button>
       </div>
-      {drawing.selectedID !== null && (
-        <div
-          className={twMerge(
-            toolbarStyle,
-            "absolute left-[50%] top-4 translate-x-[-50%]"
-          )}
-        >
-          <button className={buttonStyle}>
-            <div className="w-4 h-4 rounded-full bg-gray-800" />
-          </button>
-          <button className={buttonStyle} aria-selected>
-            <Icon icon="icon-park-outline:fill" />
-          </button>
-          <button className={buttonStyle}>
-            <Icon icon="material-symbols:line-weight-rounded" />
-          </button>
-        </div>
-      )}
       {auth.user ? null : <SignIn />}
     </div>
   );
