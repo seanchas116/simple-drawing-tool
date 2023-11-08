@@ -1,7 +1,6 @@
 import { observer } from "mobx-react-lite";
 import { Drawing } from "../state/Drawing";
 import { useState } from "react";
-import colors from "tailwindcss/colors";
 import { Layer } from "../types";
 
 interface DragState {
@@ -17,7 +16,7 @@ export const ToolEventTarget: React.FC<{
   const [dragState, setDragState] = useState<DragState | null>(null);
 
   const onMouseDown = (event: React.MouseEvent) => {
-    const color = colors.gray[800];
+    const color = drawing.color;
     const x = event.clientX;
     const y = event.clientY;
 
