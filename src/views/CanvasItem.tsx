@@ -1,7 +1,6 @@
 import React from "react";
 import { observer } from "mobx-react-lite";
 import { Drawing } from "../state/Drawing";
-import colors from "tailwindcss/colors";
 import { action } from "mobx";
 import { EllipseLayer, Layer, RectLayer } from "../types";
 
@@ -49,19 +48,36 @@ const CanvasRectLikeItem: React.FC<{
     setDragState(null);
   });
 
-  return (
-    <rect
-      onPointerDown={onPointerDown}
-      onPointerMove={onPointerMove}
-      onPointerUp={onPointerEnd}
-      fill={colors.blue[300]}
-      key={id}
-      x={layer.x}
-      y={layer.y}
-      width={layer.width}
-      height={layer.height}
-    />
-  );
+  const commonProps = {
+    onPointerDown: onPointerDown,
+    onPointerMove: onPointerMove,
+    onPointerUp: onPointerEnd,
+    fill: layer.fill ? layer.color : "transparent",
+    stroke: !layer.fill ? layer.color : "none",
+    strokeWidth: 2,
+  };
+
+  if (layer.type === "ellipse") {
+    return (
+      <ellipse
+        {...commonProps}
+        cx={layer.x + layer.width / 2}
+        cy={layer.y + layer.height / 2}
+        rx={layer.width / 2}
+        ry={layer.height / 2}
+      />
+    );
+  } else {
+    return (
+      <rect
+        {...commonProps}
+        x={layer.x}
+        y={layer.y}
+        width={layer.width}
+        height={layer.height}
+      />
+    );
+  }
 });
 
 export const CanvasItem: React.FC<{

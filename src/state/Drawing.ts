@@ -64,4 +64,4 @@ export class Drawing {
   }
 }
 
-export type Tool = "select" | "arrow" | "rect" | "ellipse";
+export type Tool = "select" | "arrow" | "rect" | "ellipse" | "text";

@@ -9,14 +9,15 @@ interface DragState {
   layerID: string;
 }
 
-export const EventTarget: React.FC<{
+const RectEllipseToolEventTarget: React.FC<{
   drawing: Drawing;
-}> = observer(({ drawing }) => {
+  type: "rect" | "ellipse";
+}> = observer(({ drawing, type }) => {
   const [dragState, setDragState] = useState<DragState | null>(null);
 
   const onMouseDown = (event: React.MouseEvent) => {
     const layerID = drawing.addLayer({
-      type: "rect",
+      type,
       color: colors.blue[300],
       fill: false,
       x: event.clientX,
@@ -61,4 +62,20 @@ export const EventTarget: React.FC<{
       onMouseLeave={onMouseEnd}
     ></div>
   );
+});
+
+export const EventTarget: React.FC<{
+  drawing: Drawing;
+}> = observer(({ drawing }) => {
+  switch (drawing.tool) {
+    case "rect":
+    case "ellipse":
+      return (
+        <RectEllipseToolEventTarget drawing={drawing} type={drawing.tool} />
+      );
+    case "arrow":
+    case "text":
+    case "select":
+      return null;
+  }
 });

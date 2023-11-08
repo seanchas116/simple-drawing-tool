@@ -37,7 +37,7 @@ export const Canvas: React.FC<{
             />
           )}
       </svg>
-      {drawing.tool !== "select" && <EventTarget drawing={drawing} />}
+      <EventTarget drawing={drawing} />
     </div>
   );
 });
