@@ -59,9 +59,29 @@ export const CanvasItem: React.FC<{
     );
   }
 
+  const arrowID = `arrow-${id}`;
+
   if (layer.type === "arrow") {
     return (
       <g {...pointerProps}>
+        <defs>
+          <marker
+            id={arrowID}
+            viewBox="-12 -12 24 24"
+            markerUnits="strokeWidth"
+            orient="auto"
+            markerWidth={12}
+            markerHeight={12}
+          >
+            <polyline
+              points="-8,-8 0,0 -8,8"
+              fill="none"
+              stroke={layer.color}
+              strokeWidth={2}
+              strokeLinecap="round"
+            />
+          </marker>
+        </defs>
         <line
           // Thicker invisible line for easier drag
           strokeWidth={8}
@@ -78,6 +98,7 @@ export const CanvasItem: React.FC<{
           x2={layer.x + layer.dx}
           y2={layer.y + layer.dy}
           stroke={layer.color}
+          markerEnd={`url(#${arrowID})`}
         />
       </g>
     );
