@@ -57,10 +57,12 @@ export class Drawing {
       action((snapshot) => {
         const cursors = snapshot.val() as Record<string, Cursor>;
         this.cursors.replace(
-          Object.entries(cursors).map(([id, cursor]) => ({
-            id,
-            ...cursor,
-          }))
+          Object.entries(cursors)
+            .map(([id, cursor]) => ({
+              id,
+              ...cursor,
+            }))
+            .filter((cursor) => cursor.id !== this.clientID)
         );
       })
     );
