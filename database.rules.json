@@ -4,6 +4,10 @@
     "drawings": {
       ".read": "auth !== null",
       ".write": "auth !== null"
+    },
+    "cursors": {
+      ".read": "auth !== null",
+      ".write": "auth !== null"
     }
   }
 }
