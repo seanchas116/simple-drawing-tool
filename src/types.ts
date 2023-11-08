@@ -28,13 +28,11 @@ export interface RectLayer extends Rect {
   fill: boolean;
 }
 
-export interface ArrowLayer {
+export interface ArrowLayer extends Point {
   type: "arrow";
   color: string;
-  x1: number;
-  y1: number;
-  x2: number;
-  y2: number;
+  dx: number;
+  dy: number;
 }
 
 export type Layer = TextLayer | EllipseLayer | RectLayer | ArrowLayer;
