@@ -6,8 +6,7 @@ import { action } from "mobx";
 import { useKeyBindings } from "./useKeyBindings";
 import { ColorPopover } from "./ColorPopover";
 import { auth } from "../state/Auth";
-
-const drawing = new Drawing("test");
+import { useState } from "react";
 
 const tools = [
   { type: "select", icon: "icon-park-outline:move-one" },
@@ -21,6 +20,8 @@ const buttonStyle =
   "w-8 h-8 flex items-center justify-center rounded-full aria-selected:bg-blue-500 aria-selected:text-white hover:bg-gray-200";
 
 export const DrawingApp = observer(() => {
+  const [drawing] = useState(() => new Drawing("test"));
+
   useKeyBindings(drawing);
 
   return (
