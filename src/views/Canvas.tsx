@@ -11,8 +11,17 @@ export const Canvas: React.FC<{
 }> = observer(({ drawing }) => {
   const selectedLayer = drawing.selectedLayer;
 
+  // handle cursor move
+
+  const onPointerMove = action((event: React.PointerEvent) => {
+    console.log(event.clientX, event.clientY);
+  });
+
   return (
-    <div className="absolute inset-0 w-full h-full">
+    <div
+      className="absolute inset-0 w-full h-full"
+      onPointerMove={onPointerMove}
+    >
       <svg className="absolute inset-0 w-full h-full">
         <rect
           fill="white"

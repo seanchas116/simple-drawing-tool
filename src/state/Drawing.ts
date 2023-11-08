@@ -3,7 +3,21 @@ import * as rtdb from "firebase/database";
 import colors from "tailwindcss/colors";
 import { ulid } from "ulid";
 import { firebase } from "../firebase";
-import { Layer } from "../types";
+import { Layer, Point } from "../types";
+import { auth } from "./Auth";
+
+function getRandomColor() {
+  const candidates = [
+    colors.red[500],
+    colors.yellow[500],
+    colors.green[500],
+    colors.blue[500],
+    colors.purple[500],
+    colors.pink[500],
+  ];
+
+  return candidates[Math.floor(Math.random() * candidates.length)];
+}
 
 export class Drawing {
   constructor(id: string) {
@@ -35,8 +49,14 @@ export class Drawing {
       tool: observable,
       color: observable,
     });
+
+    rtdb
+      .onDisconnect(rtdb.ref(firebase.rtdb, `cursors/${this.clientID}`))
+      .remove();
   }
 
+  readonly clientID = ulid();
+  readonly clientColor = getRandomColor();
   readonly layers = observable.map<string, Layer>();
   readonly ref: rtdb.DatabaseReference;
   selectedID: string | null = null;
@@ -68,6 +88,16 @@ export class Drawing {
     if (this.selectedLayer) {
       this.updateLayer(this.selectedID!, { color });
     }
+  }
+
+  populateCursor(point: Point) {
+    const cursorRef = rtdb.ref(firebase.rtdb, `cursors/${this.clientID}`);
+
+    rtdb.set(cursorRef, {
+      ...point,
+      color: this.clientColor,
+      avatar: auth.user?.photoURL,
+    });
   }
 }
 

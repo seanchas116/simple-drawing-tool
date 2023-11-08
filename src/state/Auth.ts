@@ -24,6 +24,15 @@ class Auth {
 
   state: AuthState = { type: "loading" };
 
+  get user() {
+    switch (this.state.type) {
+      case "authenticated":
+        return this.state.user;
+      default:
+        return null;
+    }
+  }
+
   signInWithGoogle() {
     const provider = new GoogleAuthProvider();
     signInWithPopup(firebase.auth, provider);
