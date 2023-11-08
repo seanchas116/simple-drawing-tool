@@ -20,7 +20,7 @@ const tools = [
 ] as const;
 
 const buttonStyle =
-  "p-2 rounded-full aria-selected:bg-blue-500 aria-selected:text-white";
+  "w-8 h-8 flex items-center justify-center rounded-full aria-selected:bg-blue-500 aria-selected:text-white hover:bg-gray-200";
 
 const paletteColors = [
   colors.gray[800],
@@ -54,19 +54,23 @@ export const App = observer(() => {
         <hr className="border-gray-200 border-r-2 h-4 my-auto mx-2" />
         <Popover.Root>
           <Popover.Trigger className={buttonStyle}>
-            <div className="w-4 h-4 bg-black rounded-full" />
+            <div className="w-5 h-5 bg-black rounded-full" />
           </Popover.Trigger>
           <Popover.Portal>
-            <Popover.Content className="rounded-2xl bg-white border border-gray-200 shadow-xl p-2">
+            <Popover.Content className="rounded-3xl bg-white border border-gray-200 shadow-xl p-2 flex">
               {paletteColors.map((color) => {
                 return (
                   <button
-                    className="w-4 h-4 rounded-full m-1"
-                    style={{ backgroundColor: color }}
+                    className={buttonStyle}
                     onClick={action(() => {
                       // TODO
                     })}
-                  />
+                  >
+                    <div
+                      className="w-5 h-5 rounded-full"
+                      style={{ backgroundColor: color }}
+                    />
+                  </button>
                 );
               })}
               <Popover.Arrow asChild>
