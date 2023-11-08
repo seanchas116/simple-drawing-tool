@@ -1,17 +1,6 @@
 import { useState } from "react";
 import colors from "tailwindcss/colors";
-
-interface Point {
-  x: number;
-  y: number;
-}
-
-interface Rect {
-  x: number;
-  y: number;
-  width: number;
-  height: number;
-}
+import { Point, Rect } from "../types";
 
 function rectFrom2Points(p1: Point, p2: Point): Rect {
   const x = Math.min(p1.x, p2.x);
