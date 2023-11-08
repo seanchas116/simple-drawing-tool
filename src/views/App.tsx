@@ -23,7 +23,7 @@ export const App = observer(() => {
   return (
     <div className="fixed inset-0 w-screen h-screen">
       <Canvas drawing={drawing} />
-      <div className="absolute left-[50%] bottom-4 translate-x-[-50%] shadow-xl border border-gray-200 rounded-full px-3 py-1 flex">
+      <div className="absolute left-[50%] bottom-4 translate-x-[-50%] shadow-xl border border-gray-200 rounded-full px-3 py-1 flex bg-white">
         {tools.map((tool) => {
           return (
             <button
@@ -38,7 +38,7 @@ export const App = observer(() => {
           );
         })}
       </div>
-      <div className="absolute right-4 bottom-4 shadow-xl border border-gray-200 rounded-full px-3 py-1 flex">
+      <div className="absolute right-4 bottom-4 shadow-xl border border-gray-200 rounded-full px-3 py-1 flex bg-white">
         <button className="p-2">
           <Icon icon="icon-park-outline:undo" />
         </button>
