@@ -14,7 +14,7 @@ export const Canvas: React.FC<{
   // handle cursor move
 
   const onPointerMove = action((event: React.PointerEvent) => {
-    console.log(event.clientX, event.clientY);
+    drawing.populateCursor({ x: event.clientX, y: event.clientY });
   });
 
   return (
