@@ -1,12 +1,9 @@
 import { action, makeObservable, observable } from "mobx";
 import * as rtdb from "firebase/database";
+import colors from "tailwindcss/colors";
+import { ulid } from "ulid";
 import { firebase } from "../firebase";
 import { Layer } from "../types";
-import colors from "tailwindcss/colors";
-
-function generateRandomID(): string {
-  return Math.random().toString(36).substring(7);
-}
 
 export class Drawing {
   constructor(id: string) {
@@ -47,7 +44,7 @@ export class Drawing {
   color: string = colors.gray[800];
 
   addLayer(layer: Layer): string {
-    const id = generateRandomID();
+    const id = ulid();
     rtdb.set(rtdb.child(this.ref, id), layer);
     return id;
   }
