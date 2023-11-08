@@ -6,6 +6,8 @@ import { auth } from "../state/Auth";
 import { SignIn } from "./SignIn";
 import { action } from "mobx";
 import { useKeyBindings } from "./useKeyBindings";
+import * as Popover from "@radix-ui/react-popover";
+import colors from "tailwindcss/colors";
 
 const drawing = new Drawing("test");
 
@@ -19,6 +21,15 @@ const tools = [
 
 const buttonStyle =
   "p-2 rounded-full aria-selected:bg-blue-500 aria-selected:text-white";
+
+const paletteColors = [
+  colors.gray[800],
+  colors.red[500],
+  colors.yellow[500],
+  colors.green[500],
+  colors.blue[500],
+  colors.purple[500],
+];
 
 export const App = observer(() => {
   useKeyBindings(drawing);
@@ -41,9 +52,39 @@ export const App = observer(() => {
           );
         })}
         <hr className="border-gray-200 border-r-2 h-4 my-auto mx-2" />
-        <button className={buttonStyle}>
-          <div className="w-4 h-4 bg-black rounded-full" />
-        </button>
+        <Popover.Root>
+          <Popover.Trigger className={buttonStyle}>
+            <div className="w-4 h-4 bg-black rounded-full" />
+          </Popover.Trigger>
+          <Popover.Portal>
+            <Popover.Content className="rounded-2xl bg-white border border-gray-200 shadow-xl p-2">
+              {paletteColors.map((color) => {
+                return (
+                  <button
+                    className="w-4 h-4 rounded-full m-1"
+                    style={{ backgroundColor: color }}
+                    onClick={action(() => {
+                      // TODO
+                    })}
+                  />
+                );
+              })}
+              <Popover.Arrow asChild>
+                <svg
+                  width="16"
+                  height="8"
+                  viewBox="0 0 16 8"
+                  className="translate-y-[-1px]"
+                >
+                  <path
+                    d="M0,0 L8,8 L16,0"
+                    className="fill-white stroke-gray-200"
+                  />
+                </svg>
+              </Popover.Arrow>
+            </Popover.Content>
+          </Popover.Portal>
+        </Popover.Root>
       </div>
       <div className="absolute right-4 bottom-4 shadow-xl border border-gray-200 rounded-full px-3 py-1 flex bg-white">
         <button className={buttonStyle}>
