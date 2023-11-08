@@ -5,6 +5,7 @@ import { Drawing } from "../state/Drawing";
 import { EventTarget } from "./EventTarget";
 import { LineHandle, RectHandle } from "./Handle";
 import { CanvasItem } from "./CanvasItem";
+import { Icon } from "@iconify/react";
 
 export const Canvas: React.FC<{
   drawing: Drawing;
@@ -58,6 +59,30 @@ export const Canvas: React.FC<{
         )}
       </svg>
       <EventTarget drawing={drawing} />
+      <div className="pointer-events-none">
+        {drawing.cursors.map((cursor) => {
+          return (
+            <div
+              key={cursor.id}
+              style={{
+                position: "absolute",
+                left: cursor.x - 2 + "px",
+                top: cursor.y - 2 + "px",
+                fontSize: "16px",
+                color: cursor.color,
+              }}
+            >
+              <Icon icon="fluent:cursor-16-filled" />
+              <img
+                className="absolute left-[3px] top-2 w-5 h-5 rounded-full border-2 max-w-none"
+                style={{ borderColor: cursor.color }}
+                alt="avatar"
+                src={cursor.avatar}
+              />
+            </div>
+          );
+        })}
+      </div>
     </div>
   );
 });

@@ -19,6 +19,14 @@ function getRandomColor() {
   return candidates[Math.floor(Math.random() * candidates.length)];
 }
 
+interface Cursor {
+  id: string;
+  x: number;
+  y: number;
+  color: string;
+  avatar?: string;
+}
+
 export class Drawing {
   constructor(id: string) {
     this.ref = rtdb.ref(firebase.rtdb, `drawings/${id}`);
@@ -44,21 +52,35 @@ export class Drawing {
       })
     );
 
+    rtdb.onValue(
+      this.cursorsRef,
+      action((snapshot) => {
+        const cursors = snapshot.val() as Record<string, Cursor>;
+        this.cursors.replace(
+          Object.entries(cursors).map(([id, cursor]) => ({
+            id,
+            ...cursor,
+          }))
+        );
+      })
+    );
+
     makeObservable(this, {
       selectedID: observable,
       tool: observable,
       color: observable,
     });
 
-    rtdb
-      .onDisconnect(rtdb.ref(firebase.rtdb, `cursors/${this.clientID}`))
-      .remove();
+    rtdb.onDisconnect(this.cursorRef).remove();
   }
 
   readonly clientID = ulid();
   readonly clientColor = getRandomColor();
-  readonly layers = observable.map<string, Layer>();
   readonly ref: rtdb.DatabaseReference;
+  readonly cursorsRef = rtdb.ref(firebase.rtdb, "cursors");
+  readonly cursorRef = rtdb.ref(firebase.rtdb, `cursors/${this.clientID}`);
+  readonly layers = observable.map<string, Layer>();
+  readonly cursors = observable.array<Cursor>([]);
   selectedID: string | null = null;
   tool: Tool = "select";
   color: string = colors.gray[800];
@@ -91,9 +113,7 @@ export class Drawing {
   }
 
   populateCursor(point: Point) {
-    const cursorRef = rtdb.ref(firebase.rtdb, `cursors/${this.clientID}`);
-
-    rtdb.set(cursorRef, {
+    rtdb.set(this.cursorRef, {
       ...point,
       color: this.clientColor,
       avatar: auth.user?.photoURL,
