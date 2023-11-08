@@ -28,6 +28,10 @@ class Auth {
     const provider = new GoogleAuthProvider();
     signInWithPopup(firebase.auth, provider);
   }
+
+  signOut() {
+    firebase.auth.signOut();
+  }
 }
 
 export const auth = new Auth();

@@ -5,6 +5,7 @@ import { Canvas } from "./Canvas";
 import { action } from "mobx";
 import { useKeyBindings } from "./useKeyBindings";
 import { ColorPopover } from "./ColorPopover";
+import { auth } from "../state/Auth";
 
 const drawing = new Drawing("test");
 
@@ -50,11 +51,8 @@ export const DrawingApp = observer(() => {
         </ColorPopover>
       </div>
       <div className="absolute right-4 bottom-4 shadow-xl border border-gray-200 rounded-full px-3 py-1 flex bg-white">
-        <button className={buttonStyle}>
-          <Icon icon="icon-park-outline:undo" />
-        </button>
-        <button className={buttonStyle}>
-          <Icon icon="icon-park-outline:redo" />
+        <button className={buttonStyle} onClick={() => auth.signOut()}>
+          <Icon icon="icon-park-outline:logout" />
         </button>
       </div>
     </div>
