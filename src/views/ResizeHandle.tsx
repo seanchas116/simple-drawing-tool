@@ -30,7 +30,7 @@ export const ResizeHandle: React.FC<{
     <>
       <rect
         fill="none"
-        stroke={colors.red[500]}
+        stroke={colors.blue[500]}
         strokeWidth={2}
         x={rect.x}
         y={rect.y}
@@ -123,8 +123,10 @@ const DragHandle: React.FC<{
     <circle
       cx={point.x}
       cy={point.y}
-      r={4}
-      fill={colors.red[500]}
+      r={6}
+      fill="white"
+      stroke={colors.blue[500]}
+      strokeWidth={2}
       onPointerDown={onPointerDown}
       onPointerMove={onPointerMove}
       onPointerUp={onPointerEnd}

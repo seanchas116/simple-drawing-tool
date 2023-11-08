@@ -52,7 +52,7 @@ export const CanvasItem: React.FC<{
       onPointerDown={onPointerDown}
       onPointerMove={onPointerMove}
       onPointerUp={onPointerEnd}
-      fill={colors.blue[500]}
+      fill={colors.blue[300]}
       key={id}
       x={layer.x}
       y={layer.y}
