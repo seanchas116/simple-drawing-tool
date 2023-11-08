@@ -3,7 +3,7 @@ import { action } from "mobx";
 import { observer } from "mobx-react-lite";
 import { Drawing } from "../state/Drawing";
 import { EventTarget } from "./EventTarget";
-import { ResizeHandle } from "./ResizeHandle";
+import { LineHandle, RectHandle } from "./Handle";
 import { CanvasItem } from "./CanvasItem";
 
 export const Canvas: React.FC<{
@@ -28,7 +28,7 @@ export const Canvas: React.FC<{
         {selectedLayer &&
           (selectedLayer.type === "rect" ||
             selectedLayer.type === "ellipse") && (
-            <ResizeHandle
+            <RectHandle
               rect={selectedLayer}
               onChange={(rect) => {
                 if (drawing.selectedID) {
@@ -37,6 +37,16 @@ export const Canvas: React.FC<{
               }}
             />
           )}
+        {selectedLayer && selectedLayer.type === "arrow" && (
+          <LineHandle
+            line={selectedLayer}
+            onChange={(line) => {
+              if (drawing.selectedID) {
+                drawing.updateLayer(drawing.selectedID, line);
+              }
+            }}
+          />
+        )}
       </svg>
       <EventTarget drawing={drawing} />
     </div>

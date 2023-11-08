@@ -10,6 +10,13 @@ export interface Rect {
   height: number;
 }
 
+export interface Line {
+  x: number;
+  y: number;
+  dx: number;
+  dy: number;
+}
+
 export interface TextLayer extends Point {
   type: "text";
   text: string;
@@ -28,11 +35,9 @@ export interface RectLayer extends Rect {
   fill: boolean;
 }
 
-export interface ArrowLayer extends Point {
+export interface ArrowLayer extends Line {
   type: "arrow";
   color: string;
-  dx: number;
-  dy: number;
 }
 
 export type Layer = TextLayer | EllipseLayer | RectLayer | ArrowLayer;

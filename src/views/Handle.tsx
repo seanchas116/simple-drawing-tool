@@ -1,6 +1,6 @@
 import { useState } from "react";
 import colors from "tailwindcss/colors";
-import { Point, Rect } from "../types";
+import { Line, Point, Rect } from "../types";
 
 function rectFrom2Points(p1: Point, p2: Point): Rect {
   const x = Math.min(p1.x, p2.x);
@@ -10,7 +10,38 @@ function rectFrom2Points(p1: Point, p2: Point): Rect {
   return { x, y, width, height };
 }
 
-export const ResizeHandle: React.FC<{
+export const LineHandle: React.FC<{
+  line: Line;
+  onChange: (line: Line) => void;
+}> = ({ line, onChange }) => {
+  return (
+    <>
+      <DragHandle
+        point={{ x: line.x, y: line.y }}
+        init={line}
+        onChange={(pos, initLine) => {
+          onChange({
+            ...initLine,
+            ...pos,
+          });
+        }}
+      />
+      <DragHandle
+        point={{ x: line.x + line.dx, y: line.y + line.dy }}
+        init={line}
+        onChange={(pos, initLine) => {
+          onChange({
+            ...initLine,
+            dx: pos.x - initLine.x,
+            dy: pos.y - initLine.y,
+          });
+        }}
+      />
+    </>
+  );
+};
+
+export const RectHandle: React.FC<{
   rect: Rect;
   onChange: (rect: Rect) => void;
 }> = ({ rect, onChange }) => {
@@ -28,7 +59,7 @@ export const ResizeHandle: React.FC<{
       />
       <DragHandle
         point={{ x: rect.x, y: rect.y }}
-        rect={rect}
+        init={rect}
         onChange={(pos, initRect) => {
           const counterpart = {
             x: initRect.x + initRect.width,
@@ -39,7 +70,7 @@ export const ResizeHandle: React.FC<{
       />
       <DragHandle
         point={{ x: rect.x + rect.width, y: rect.y }}
-        rect={rect}
+        init={rect}
         onChange={(pos, initRect) => {
           const counterpart = {
             x: initRect.x,
@@ -50,7 +81,7 @@ export const ResizeHandle: React.FC<{
       />
       <DragHandle
         point={{ x: rect.x, y: rect.y + rect.height }}
-        rect={rect}
+        init={rect}
         onChange={(pos, initRect) => {
           const counterpart = { x: initRect.x + initRect.width, y: initRect.y };
           onChange(rectFrom2Points(pos, counterpart));
@@ -58,7 +89,7 @@ export const ResizeHandle: React.FC<{
       />
       <DragHandle
         point={{ x: rect.x + rect.width, y: rect.y + rect.height }}
-        rect={rect}
+        init={rect}
         onChange={(pos, initRect) => {
           const counterpart = { x: initRect.x, y: initRect.y };
           onChange(rectFrom2Points(pos, counterpart));
@@ -68,19 +99,23 @@ export const ResizeHandle: React.FC<{
   );
 };
 
-interface DragState {
+interface DragState<T> {
   initX: number;
   initY: number;
-  initRect: Rect;
+  init: T;
   initPoint: Point;
 }
 
-const DragHandle: React.FC<{
+function DragHandle<T>({
+  point,
+  init,
+  onChange,
+}: {
   point: Point;
-  rect: Rect;
-  onChange: (point: Point, initRect: Rect) => void;
-}> = ({ point, rect, onChange }) => {
-  const [dragState, setDragState] = useState<DragState | null>(null);
+  init: T;
+  onChange: (point: Point, init: T) => void;
+}) {
+  const [dragState, setDragState] = useState<DragState<T> | null>(null);
 
   const onPointerDown = (event: React.PointerEvent) => {
     event.currentTarget.setPointerCapture(event.pointerId);
@@ -89,16 +124,16 @@ const DragHandle: React.FC<{
       initX: event.clientX,
       initY: event.clientY,
       initPoint: point,
-      initRect: rect,
+      init,
     });
   };
 
   const onPointerMove = (event: React.PointerEvent) => {
     if (dragState) {
-      const { initX, initY, initPoint, initRect } = dragState;
+      const { initX, initY, initPoint, init } = dragState;
       const x = initPoint.x + event.clientX - initX;
       const y = initPoint.y + event.clientY - initY;
-      onChange({ x, y }, initRect);
+      onChange({ x, y }, init);
     }
   };
 
@@ -121,4 +156,4 @@ const DragHandle: React.FC<{
       onPointerUp={onPointerEnd}
     />
   );
-};
+}
