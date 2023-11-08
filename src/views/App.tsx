@@ -63,7 +63,7 @@ export const App = observer(() => {
                   <button
                     className={buttonStyle}
                     onClick={action(() => {
-                      // TODO
+                      drawing.setColor(color);
                     })}
                   >
                     <div

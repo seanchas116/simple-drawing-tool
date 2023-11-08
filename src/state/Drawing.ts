@@ -2,6 +2,7 @@ import { action, makeObservable, observable } from "mobx";
 import * as rtdb from "firebase/database";
 import { firebase } from "../firebase";
 import { Layer } from "../types";
+import colors from "tailwindcss/colors";
 
 function generateRandomID(): string {
   return Math.random().toString(36).substring(7);
@@ -35,6 +36,7 @@ export class Drawing {
     makeObservable(this, {
       selectedID: observable,
       tool: observable,
+      color: observable,
     });
   }
 
@@ -42,6 +44,7 @@ export class Drawing {
   readonly ref: rtdb.DatabaseReference;
   selectedID: string | null = null;
   tool: Tool = "select";
+  color: string = colors.gray[800];
 
   addLayer(layer: Layer): string {
     const id = generateRandomID();
@@ -61,6 +64,13 @@ export class Drawing {
     return this.selectedID === null
       ? null
       : this.layers.get(this.selectedID) ?? null;
+  }
+
+  setColor(color: string) {
+    this.color = color;
+    if (this.selectedLayer) {
+      this.updateLayer(this.selectedID!, { color });
+    }
   }
 }
 
