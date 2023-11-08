@@ -39,7 +39,7 @@ export const CanvasItem: React.FC<{
     }
   });
 
-  const onPointerEnd = action((event: React.PointerEvent) => {
+  const onPointerUp = action((event: React.PointerEvent) => {
     event?.currentTarget.releasePointerCapture(event.pointerId);
 
     setDragState(null);
@@ -48,7 +48,7 @@ export const CanvasItem: React.FC<{
   const pointerProps = {
     onPointerDown,
     onPointerMove,
-    onPointerEnd,
+    onPointerUp,
   };
 
   if (layer.type === "text") {
