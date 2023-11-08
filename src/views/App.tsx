@@ -5,6 +5,7 @@ import { Canvas } from "./Canvas";
 import { auth } from "../state/Auth";
 import { SignIn } from "./SignIn";
 import { action } from "mobx";
+import { useKeyBindings } from "./useKeyBindings";
 
 const drawing = new Drawing("test");
 
@@ -16,6 +17,8 @@ const tools = [
 ] as const;
 
 export const App = observer(() => {
+  useKeyBindings(drawing);
+
   return (
     <div className="fixed inset-0 w-screen h-screen">
       <Canvas drawing={drawing} />
