@@ -10,7 +10,10 @@ export function useKeyBindings(drawing: Drawing) {
       "backspace",
       action((event: KeyboardEvent) => {
         event.preventDefault();
-        console.log("TODO: remove");
+
+        if (drawing.selectedID) {
+          drawing.removeLayer(drawing.selectedID);
+        }
       })
     );
 
