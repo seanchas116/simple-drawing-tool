@@ -114,6 +114,27 @@ const RectEllipseToolEventTarget: React.FC<{
   );
 });
 
+const TextToolEventTarget: React.FC<{
+  drawing: Drawing;
+}> = observer(({ drawing }) => {
+  const onMouseDown = (event: React.MouseEvent) => {
+    drawing.addLayer({
+      type: "text",
+      text: "Text",
+      color: colors.blue[300],
+      x: event.clientX,
+      y: event.clientY,
+    });
+  };
+
+  return (
+    <div
+      className="absolute inset-0 w-full h-full"
+      onMouseDown={onMouseDown}
+    ></div>
+  );
+});
+
 export const EventTarget: React.FC<{
   drawing: Drawing;
 }> = observer(({ drawing }) => {
@@ -126,6 +147,7 @@ export const EventTarget: React.FC<{
     case "arrow":
       return <ArrowToolEventTarget drawing={drawing} />;
     case "text":
+      return <TextToolEventTarget drawing={drawing} />;
     case "select":
       return null;
   }

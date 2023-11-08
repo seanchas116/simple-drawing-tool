@@ -14,6 +14,7 @@ const tools = [
   { type: "rect", icon: "icon-park-outline:square" },
   { type: "ellipse", icon: "icon-park-outline:round" },
   { type: "arrow", icon: "icon-park-outline:arrow-right-up" },
+  { type: "text", icon: "icon-park-outline:font-size" },
 ] as const;
 
 export const App = observer(() => {
