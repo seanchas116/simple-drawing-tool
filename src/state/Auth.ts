@@ -2,20 +2,27 @@ import { action, makeObservable, observable } from "mobx";
 import { User, GoogleAuthProvider, signInWithPopup } from "firebase/auth";
 import { firebase } from "../firebase";
 
+type AuthState =
+  | { type: "loading" }
+  | { type: "authenticated"; user: User }
+  | { type: "unauthenticated" };
+
 class Auth {
   constructor() {
     makeObservable(this, {
-      user: observable,
+      state: observable.ref,
     });
 
     firebase.auth.onAuthStateChanged(
       action((user: User | null) => {
-        this.user = user;
+        this.state = user
+          ? { type: "authenticated", user }
+          : { type: "unauthenticated" };
       })
     );
   }
 
-  user: User | null = null;
+  state: AuthState = { type: "loading" };
 
   signInWithGoogle() {
     const provider = new GoogleAuthProvider();
