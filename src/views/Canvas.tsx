@@ -2,8 +2,8 @@ import React from "react";
 import { observer } from "mobx-react-lite";
 import { Drawing } from "../state/Drawing";
 import { EventTarget } from "./EventTarget";
-import colors from "tailwindcss/colors";
 import { ResizeHandle } from "./ResizeHandle";
+import { CanvasItem } from "./CanvasItem";
 
 export const Canvas: React.FC<{
   drawing: Drawing;
@@ -21,21 +21,9 @@ export const Canvas: React.FC<{
             drawing.selectedID = null;
           }}
         />
-        {[...drawing.layers].map(([id, layer]) => {
-          return (
-            <rect
-              fill={colors.blue[500]}
-              key={id}
-              x={layer.x}
-              y={layer.y}
-              width={layer.width}
-              height={layer.height}
-              onClick={() => {
-                drawing.selectedID = id;
-              }}
-            />
-          );
-        })}
+        {[...drawing.layers].map(([id, layer]) => (
+          <CanvasItem key={id} drawing={drawing} id={id} layer={layer} />
+        ))}
         {selectedLayer && (
           <ResizeHandle
             rect={selectedLayer}

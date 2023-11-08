@@ -2,7 +2,7 @@ import { makeObservable, observable } from "mobx";
 import * as rtdb from "firebase/database";
 import { firebase } from "../firebase";
 
-interface Layer {
+export interface Layer {
   type: "text" | "rect" | "ellipse";
   text: string;
   x: number;
