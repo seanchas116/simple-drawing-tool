@@ -61,14 +61,25 @@ export const CanvasItem: React.FC<{
 
   if (layer.type === "arrow") {
     return (
-      <line
-        {...pointerProps}
-        x1={layer.x}
-        y1={layer.y}
-        x2={layer.x + layer.dx}
-        y2={layer.y + layer.dy}
-        stroke={layer.color}
-      />
+      <g {...pointerProps}>
+        <line
+          // Thicker invisible line for easier drag
+          strokeWidth={8}
+          x1={layer.x}
+          y1={layer.y}
+          x2={layer.x + layer.dx}
+          y2={layer.y + layer.dy}
+          stroke="transparent"
+        />
+        <line
+          strokeWidth={2}
+          x1={layer.x}
+          y1={layer.y}
+          x2={layer.x + layer.dx}
+          y2={layer.y + layer.dy}
+          stroke={layer.color}
+        />
+      </g>
     );
   }
 
