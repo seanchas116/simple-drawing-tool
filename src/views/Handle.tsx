@@ -45,7 +45,6 @@ export const RectHandle: React.FC<{
   rect: Rect;
   onChange: (rect: Rect) => void;
 }> = ({ rect, onChange }) => {
-  // WIP: resize
   return (
     <>
       <rect
