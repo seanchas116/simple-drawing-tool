@@ -24,7 +24,7 @@ export const ToolEventTarget: React.FC<{
     switch (type) {
       case "rect":
       case "ellipse":
-        layer = { type, color, fill: false, x, y, width: 0, height: 0 };
+        layer = { type, color, x, y, width: 0, height: 0 };
         break;
       case "arrow":
         layer = { type: "arrow", color, x, y, dx: 0, dy: 0 };

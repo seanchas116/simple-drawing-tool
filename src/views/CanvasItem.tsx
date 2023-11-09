@@ -113,8 +113,8 @@ export const CanvasItem: React.FC<{
   }
 
   const fillStrokeProps = {
-    fill: layer.fill ? layer.color : "transparent",
-    stroke: !layer.fill ? layer.color : "none",
+    fill: "transparent",
+    stroke: layer.color,
     strokeWidth: 2,
   };
 
