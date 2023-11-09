@@ -1,19 +1,22 @@
 import { observer } from "mobx-react-lite";
 import { Drawing } from "../state/Drawing";
 import { LineHandle, RectHandle } from "./Handle";
+import colors from "tailwindcss/colors";
+import { action } from "mobx";
 
 export const Selection: React.FC<{
   drawing: Drawing;
 }> = observer(({ drawing }) => {
-  const selectedLayer = drawing.selectedLayer;
-  if (!selectedLayer) return null;
+  const layer = drawing.selectedLayer;
+  if (!layer) return null;
+  if (drawing.editingID === drawing.selectedID) return null;
 
-  switch (selectedLayer.type) {
+  switch (layer.type) {
     case "rect":
     case "ellipse":
       return (
         <RectHandle
-          rect={selectedLayer}
+          rect={layer}
           onChange={(rect) => {
             if (drawing.selectedID) {
               drawing.updateLayer(drawing.selectedID, rect);
@@ -24,7 +27,7 @@ export const Selection: React.FC<{
     case "arrow":
       return (
         <LineHandle
-          line={selectedLayer}
+          line={layer}
           onChange={(line) => {
             if (drawing.selectedID) {
               drawing.updateLayer(drawing.selectedID, line);
@@ -33,6 +36,19 @@ export const Selection: React.FC<{
         />
       );
     case "text":
-    // TODO
+      return (
+        <text
+          x={layer.x}
+          y={layer.y}
+          fill={layer.color}
+          stroke={colors.blue[500]}
+          strokeWidth={1}
+          onMouseDown={action(() => {
+            drawing.editingID = drawing.selectedID;
+          })}
+        >
+          {layer.text}
+        </text>
+      );
   }
 });

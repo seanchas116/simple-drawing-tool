@@ -6,6 +6,7 @@ import { EventTarget } from "./EventTarget";
 import { CanvasItem } from "./CanvasItem";
 import { Icon } from "@iconify/react";
 import { Selection } from "./Selection";
+import { TextEditor } from "./TextEditor";
 
 export const Canvas: React.FC<{
   drawing: Drawing;
@@ -28,9 +29,12 @@ export const Canvas: React.FC<{
             drawing.selectedID = null;
           })}
         />
-        {[...drawing.layers].map(([id, layer]) => (
-          <CanvasItem key={id} drawing={drawing} id={id} layer={layer} />
-        ))}
+        {[...drawing.layers].map(([id, layer]) => {
+          if (id === drawing.editingID) return null;
+          return (
+            <CanvasItem key={id} drawing={drawing} id={id} layer={layer} />
+          );
+        })}
         <Selection drawing={drawing} />
       </svg>
       <EventTarget drawing={drawing} />
@@ -58,6 +62,7 @@ export const Canvas: React.FC<{
           );
         })}
       </div>
+      {drawing.editingID !== null && <TextEditor drawing={drawing} />}
     </div>
   );
 });

@@ -69,6 +69,7 @@ export class Drawing {
 
     makeObservable(this, {
       selectedID: observable,
+      editingID: observable,
       tool: observable,
       color: observable,
     });
@@ -84,6 +85,7 @@ export class Drawing {
   readonly layers = observable.map<string, Layer>();
   readonly cursors = observable.array<Cursor>([]);
   selectedID: string | null = null;
+  editingID: string | null = null;
   tool: Tool = "select";
   color: string = colors.gray[800];
 
