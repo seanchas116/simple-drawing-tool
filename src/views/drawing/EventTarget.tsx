@@ -1,7 +1,7 @@
 import { observer } from "mobx-react-lite";
-import { Drawing } from "../state/Drawing";
+import { Drawing } from "../../state/Drawing";
 import { useState } from "react";
-import { Layer } from "../types";
+import { Layer } from "../../types";
 
 interface DragState {
   initX: number;

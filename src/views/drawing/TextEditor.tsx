@@ -1,5 +1,5 @@
 import { useEffect, useRef } from "react";
-import { Drawing } from "../state/Drawing";
+import { Drawing } from "../../state/Drawing";
 import { action } from "mobx";
 
 export const TextEditor: React.FC<{

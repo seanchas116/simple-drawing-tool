@@ -1,4 +1,4 @@
-import { auth } from "../state/Auth";
+import { auth } from "../../state/Auth";
 
 export const SignIn = () => {
   return (

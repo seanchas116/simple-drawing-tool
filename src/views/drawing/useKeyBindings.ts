@@ -1,6 +1,6 @@
 import { useEffect } from "react";
 import hotkeys from "hotkeys-js";
-import { Drawing } from "../state/Drawing";
+import { Drawing } from "../../state/Drawing";
 import { action } from "mobx";
 
 export function useKeyBindings(drawing: Drawing) {

@@ -1,5 +1,5 @@
 import { observer } from "mobx-react-lite";
-import { Drawing } from "../state/Drawing";
+import { Drawing } from "../../state/Drawing";
 import { LineHandle, RectHandle } from "./Handle";
 import colors from "tailwindcss/colors";
 

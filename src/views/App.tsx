@@ -1,7 +1,7 @@
 import { observer } from "mobx-react-lite";
 import { auth } from "../state/Auth";
-import { SignIn } from "./SignIn";
-import { DrawingApp } from "./DrawingApp";
+import { SignIn } from "./auth/SignIn";
+import { DrawingApp } from "./drawing/DrawingApp";
 
 export const App = observer(() => {
   return (

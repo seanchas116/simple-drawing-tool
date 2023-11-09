@@ -1,11 +1,11 @@
 import { Icon } from "@iconify/react";
 import { observer } from "mobx-react-lite";
-import { Drawing } from "../state/Drawing";
+import { Drawing } from "../../state/Drawing";
 import { Canvas } from "./Canvas";
 import { action } from "mobx";
 import { useKeyBindings } from "./useKeyBindings";
 import { ColorPopover } from "./ColorPopover";
-import { auth } from "../state/Auth";
+import { auth } from "../../state/Auth";
 import { useState } from "react";
 
 const tools = [

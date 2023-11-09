@@ -1,7 +1,7 @@
 import React from "react";
 import { action } from "mobx";
 import { observer } from "mobx-react-lite";
-import { Drawing } from "../state/Drawing";
+import { Drawing } from "../../state/Drawing";
 import { EventTarget } from "./EventTarget";
 import { CanvasItem } from "./CanvasItem";
 import { Icon } from "@iconify/react";

@@ -1,8 +1,8 @@
 import React from "react";
 import { observer } from "mobx-react-lite";
-import { Drawing } from "../state/Drawing";
+import { Drawing } from "../../state/Drawing";
 import { action } from "mobx";
-import { Layer } from "../types";
+import { Layer } from "../../types";
 
 interface CanvasRectLikeItemDragState {
   initX: number;

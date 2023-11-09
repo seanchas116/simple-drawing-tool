@@ -1,4 +1,4 @@
-import { Drawing } from "../state/Drawing";
+import { Drawing } from "../../state/Drawing";
 import { action } from "mobx";
 import * as Popover from "@radix-ui/react-popover";
 import colors from "tailwindcss/colors";
