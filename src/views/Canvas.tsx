@@ -5,7 +5,7 @@ import { Drawing } from "../state/Drawing";
 import { EventTarget } from "./EventTarget";
 import { CanvasItem } from "./CanvasItem";
 import { Icon } from "@iconify/react";
-import { Selection } from "./Selection";
+import { Selection, TextSelectionUnderline } from "./Selection";
 import { TextEditor } from "./TextEditor";
 
 export const Canvas: React.FC<{
@@ -29,6 +29,7 @@ export const Canvas: React.FC<{
             drawing.selectedID = null;
           })}
         />
+        <TextSelectionUnderline drawing={drawing} />
         {[...drawing.layers].map(([id, layer]) => {
           if (id === drawing.editingID) return null;
           return (
