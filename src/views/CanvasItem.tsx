@@ -53,7 +53,15 @@ export const CanvasItem: React.FC<{
 
   if (layer.type === "text") {
     return (
-      <text {...pointerProps} x={layer.x} y={layer.y} fill={layer.color}>
+      <text
+        {...pointerProps}
+        x={layer.x}
+        y={layer.y}
+        fill={layer.color}
+        onDoubleClick={action(() => {
+          drawing.editingID = id;
+        })}
+      >
         {layer.text}
       </text>
     );

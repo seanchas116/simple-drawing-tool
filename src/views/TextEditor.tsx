@@ -17,6 +17,7 @@ export const TextEditor: React.FC<{
     if (!editable) return;
 
     editable.innerText = layer.text;
+    editable.style.color = layer.color;
     editable.style.left = layer.x + "px";
     editable.style.top = layer.y - 16 + "px";
 

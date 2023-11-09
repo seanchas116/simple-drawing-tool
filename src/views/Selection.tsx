@@ -49,13 +49,11 @@ export const TextSelectionUnderline: React.FC<{
   drawing: Drawing;
 }> = observer(({ drawing }) => {
   const layer = drawing.selectedLayer;
-  if (!layer) return null;
-  if (drawing.editingID === drawing.selectedID) return null;
-
-  if (layer.type !== "text") return null;
+  if (layer?.type !== "text" || drawing.editingID) {
+    return null;
+  }
 
   const width = measureTextWidth(layer.text, 16);
-  console.log(width);
 
   return (
     <line
