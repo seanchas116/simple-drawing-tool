@@ -55,12 +55,12 @@ export class Drawing {
     rtdb.onValue(
       this.cursorsRef,
       action((snapshot) => {
-        const cursors = snapshot.val() as Record<string, Cursor>;
+        const cursors = snapshot.val() as Record<string, Omit<Cursor, "id">>;
         this.cursors.replace(
           Object.entries(cursors)
             .map(([id, cursor]) => ({
-              id,
               ...cursor,
+              id,
             }))
             .filter((cursor) => cursor.id !== this.clientID)
         );
